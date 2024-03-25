@@ -15,9 +15,16 @@
             </div>
         </div>
         <div class="right flex flex-col py-4 px-6 text-center justify-center">
-            <span class="mx-4 my-1 py-1.5 px-2 rounded-sm text-l">Role</span>
-            <span class="mx-4 my-1 py-1.5 px-2 rounded-sm text-l">Name</span>
-            <span class="mx-4 my-1 py-1.5 px-2 rounded-sm text-l">Year & Section</span>
+            @if ($attendanceLog)
+                <p>RFID: {{ $attendanceLog->rfid }}</p>
+                <p>Type: {{ $attendanceLog->type }}</p>
+                <p>Created At: {{ $attendanceLog->created_at }}</p>
+                {{-- <p>User Name: {{ $attendanceLog->user->name }}</p> --}}
+                {{-- <p>User Role: {{ $attendanceLog['user']['role'] }}</p> --}}
+            @else
+                {{-- Put Waiting Animation Here --}}
+                <p>No attendance log found.</p>
+            @endif
 
         </div>
     </section>

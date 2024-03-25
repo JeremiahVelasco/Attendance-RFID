@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AttendanceLogResource;
 use App\Models\Attendance;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -11,9 +13,13 @@ class AttendanceController extends Controller
     /**
      * Display a listing of the resource.
      */
+    // TODO : Fix when no one has logged in for 5 minutes it will display the waiting animation
     public function index()
     {
-        //
+        if (Attendance::exists() == 0) 
+        {
+            return view('index', ['attendanceLog' => null]);
+        }
     }
 
     /**
@@ -56,8 +62,15 @@ class AttendanceController extends Controller
         $attendance->rfid = $validated['rfid'];
         $attendance->type = $type;
         $attendance->save();
-    
-        return redirect('/');
+
+        $attendanceLogResource = new AttendanceLogResource($attendance);
+
+        if (!$attendanceLogResource) {
+            return 'ERROR';
+        }
+
+        // Pass the formatted data to the view
+        return response()->view('index', ['attendanceLog' => $attendanceLogResource]);        
     }
 
     /**

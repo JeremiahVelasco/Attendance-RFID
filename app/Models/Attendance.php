@@ -9,11 +9,15 @@ class Attendance extends Model
 {
     protected $fillable = [
         'rfid',
-        // 'user_id',
         'type'
     ];
 
     public function user() 
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function rfid()
     {
         return $this->belongsTo(User::class);
     }
