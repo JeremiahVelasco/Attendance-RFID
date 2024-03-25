@@ -38,16 +38,16 @@ class AttendanceController extends Controller
             ->latest('created_at')
             ->first();
     
-        $type = 1; // Default type is TIME IN
+        $type = Attendance::TIME_IN; // Default type is TIME IN
     
         if ($latestLog) {
             $currentTime = Carbon::now();
-            $fiveMinutesAgo = $currentTime->subMinutes(1);
+            $fiveMinutesAgo = $currentTime->subMinutes(1); // Put 1 for Testing and 5 for Prod
     
             if ($latestLog->created_at->lte($fiveMinutesAgo)) {
-                $type = 2; // Set type to TIME OUT if conditions are met
-            } elseif ($latestLog->type === 2) {
-                $type = 1; // Set type to TIME IN if latest log is TIME OUT
+                $type = Attendance::TIME_OUT; // Set type to TIME OUT if conditions are met
+            } elseif ($latestLog->type === Attendance::TIME_OUT) {
+                $type = Attendance::TIME_IN;
             }
         }
     
