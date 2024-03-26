@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\AttendanceLogResource;
 use App\Models\Attendance;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AttendanceController extends Controller
 {
@@ -62,6 +64,7 @@ class AttendanceController extends Controller
         $attendance->type = $type;
         $attendance->save();
 
+        $incrementAttendance = $this->incrementAttendance($request);
         $attendanceLogResource = new AttendanceLogResource($attendance);
         $transformedAttendanceLog = $attendanceLogResource->toArray($request);
 
@@ -92,7 +95,7 @@ class AttendanceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(string $id)
     {
         //
     }
@@ -103,5 +106,24 @@ class AttendanceController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    private function incrementAttendance($rfid)
+    {
+        // Find the user by RFID
+        $user = User::where('rfid', $rfid)->first();
+
+        // Check if the user exists
+        if (!$user) {
+            return 'User not found'; // or handle the case appropriately
+        }
+
+        // Increment attendance
+        $increment = ++$user->attendance;
+        $user->save();
+
+        Log::info("User attendance incremented: {$user->name} (RFID: $rfid)");
+
+        return response()->json($user);
     }
 }

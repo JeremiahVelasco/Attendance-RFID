@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('rfid')->unique()->nullable();
             $table->integer('role')->default(0);
-            // $table->timestamp('email_verified_at')->nullable();
+            $table->integer('attendance');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

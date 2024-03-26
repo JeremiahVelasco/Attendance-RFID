@@ -76,7 +76,9 @@ class UserResource extends Resource
 
                     // Return the corresponding label from the mapping, or a default value if not found
                     return array_key_exists($roleValue, $roleMapping) ? $roleMapping[$roleValue] : 'Unknown Role';
-                })
+                }),
+            Tables\Columns\TextColumn::make('attendance')
+                ->sortable(),
         ])
             ->filters([
                 //

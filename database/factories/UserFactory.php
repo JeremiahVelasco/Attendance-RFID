@@ -31,7 +31,7 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'rfid' => fake()->randomNumber(3),
             'role' => fake()->randomElement(Role::$roles),
-            // 'email_verified_at' => now(),
+            'attendance' => fake()->numberBetween(1, 15),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
