@@ -2,9 +2,8 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\FacultyResource\Pages;
-use App\Filament\Resources\FacultyResource\RelationManagers;
-use App\Models\Faculty;
+use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -15,7 +14,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class FacultyResource extends Resource
+class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
@@ -51,7 +50,8 @@ class FacultyResource extends Resource
                 ->label('ID')
                 ->sortable(),
             // TODO : display default profile image
-            ImageColumn::make('image'),
+            ImageColumn::make('image')
+                ->disk('public'),
             Tables\Columns\TextColumn::make('name')
                 ->searchable()
                 ->sortable(),
@@ -101,9 +101,9 @@ class FacultyResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListFaculties::route('/'),
-            'create' => Pages\CreateFaculty::route('/create'),
-            'edit' => Pages\EditFaculty::route('/{record}/edit'),
+            'index' => Pages\ListUsers::route('/'),
+            'create' => Pages\CreateUser::route('/create'),
+            'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
 }
