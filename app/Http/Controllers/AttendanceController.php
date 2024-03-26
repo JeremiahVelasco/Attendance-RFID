@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\EmailNotificationTrait;
 use App\Http\Resources\AttendanceLogResource;
+use App\Mail\AttendanceLogMail;
 use App\Models\Attendance;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
+use function Laravel\Prompts\error;
 
 class AttendanceController extends Controller
 {
@@ -65,7 +70,9 @@ class AttendanceController extends Controller
         $attendanceLogResource = new AttendanceLogResource($attendance);
         $transformedAttendanceLog = $attendanceLogResource->toArray($request);
 
-        if (!$attendanceLogResource || !$transformedAttendanceLog) {
+        $mailSend = Mail::to('velascojeremiahd@gmail.com', null)->send(new AttendanceLogMail($attendance));
+
+        if (!$attendanceLogResource || !$transformedAttendanceLog || !$mailSend) {
             return 'ERROR';
         }
 
