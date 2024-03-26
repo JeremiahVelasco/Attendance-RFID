@@ -10,6 +10,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -37,6 +38,8 @@ class FacultyResource extends Resource
             Forms\Components\TextInput::make('role')
                 ->required()
                 ->maxLength(255),
+            Forms\Components\TextInput::make('image')
+                ->maxLength(255),
         ]);
     }
 
@@ -47,6 +50,8 @@ class FacultyResource extends Resource
             Tables\Columns\TextColumn::make('id')
                 ->label('ID')
                 ->sortable(),
+            // TODO : display default profile image
+            ImageColumn::make('image'),
             Tables\Columns\TextColumn::make('name')
                 ->searchable()
                 ->sortable(),

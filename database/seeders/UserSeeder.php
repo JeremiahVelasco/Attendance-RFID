@@ -14,6 +14,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
+            'image' => ('/storage/default-prof.jpeg'),
             'name' => 'Jeremiah Velasco',
             'email' => 'velascojeremiahd@gmail.com',
             'rfid' => '000',
