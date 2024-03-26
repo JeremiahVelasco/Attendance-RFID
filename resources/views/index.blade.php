@@ -16,14 +16,16 @@
         </div>
         <div class="right flex flex-col py-4 px-6 text-center justify-center">
             @if ($attendanceLog)
-                <p>RFID: {{ $attendanceLog->rfid }}</p>
-                <p>Type: {{ $attendanceLog->type }}</p>
-                <p>Created At: {{ $attendanceLog->created_at }}</p>
-                {{-- <p>User Name: {{ $attendanceLog->user->name }}</p> --}}
-                {{-- <p>User Role: {{ $attendanceLog['user']['role'] }}</p> --}}
+                <p>RFID: {{ $attendanceLog['rfid'] }}</p>
+                <p>Type: {{ $attendanceLog['type'] }}</p>
+                <p>Created At: {{ $attendanceLog['created_at'] }}</p>
+                <p>Name: {{ $attendanceLog['user']['name'] }}</p>
+                <p>Role: {{ $attendanceLog['user']['role'] }}</p>
             @else
                 {{-- Put Waiting Animation Here --}}
-                <p>No attendance log found.</p>
+                <iframe src="https://giphy.com/embed/lP4jmO461gq9uLzzYc" width="480" height="312" frameBorder="0"
+                    class="giphy-embed" allowFullScreen></iframe>
+                <p><a href="https://giphy.com/gifs/moodman-still-waiting-lP4jmO461gq9uLzzYc"></a></p>
             @endif
 
         </div>

@@ -13,10 +13,9 @@ class AttendanceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // TODO : Fix when no one has logged in for 5 minutes it will display the waiting animation
     public function index()
     {
-        if (Attendance::exists() == 0) 
+        if (Attendance::exists()) 
         {
             return view('index', ['attendanceLog' => null]);
         }
@@ -64,13 +63,14 @@ class AttendanceController extends Controller
         $attendance->save();
 
         $attendanceLogResource = new AttendanceLogResource($attendance);
+        $transformedAttendanceLog = $attendanceLogResource->toArray($request);
 
-        if (!$attendanceLogResource) {
+        if (!$attendanceLogResource || !$transformedAttendanceLog) {
             return 'ERROR';
         }
 
         // Pass the formatted data to the view
-        return response()->view('index', ['attendanceLog' => $attendanceLogResource]);        
+        return response()->view('index', ['attendanceLog' => $transformedAttendanceLog]);        
     }
 
     /**

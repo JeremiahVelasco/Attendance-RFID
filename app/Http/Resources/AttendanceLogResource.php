@@ -13,7 +13,6 @@ class AttendanceLogResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    // TODO : Fix view because it user details are not being displayed
     public function toArray(Request $request): array
     {
         if ($this->type === 1) {
@@ -26,12 +25,24 @@ class AttendanceLogResource extends JsonResource
             $type = "UNKNOWN TYPE";
         }
 
+        $roleMapping = [
+            0 => 'Admin',
+            1 => 'Faculty',
+            2 => 'Staff',
+            3 => 'Student',
+        ];
+
+        $user = User::where('rfid', $this->rfid)
+                    ->first();
+
         return [
             'rfid' => $this->rfid,
             'type' => $type,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-            'user' => User::where('rfid', $this->rfid)
-                        ->first()
+            'user' => [
+                'name' => $user->name,
+                'role' => $roleMapping[$user->role],
+            ]
         ];
     }
 }

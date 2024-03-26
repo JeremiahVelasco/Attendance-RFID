@@ -13,12 +13,7 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->string('rfid');
-            // $table->foreignId('user_id')
-            //     ->constrained()
-            //     ->cascadeOnUpdate()
-            //     ->restrictOnDelete();
-                
+            $table->string('rfid');                
             $table->integer('type');
             $table->timestamps();
         });

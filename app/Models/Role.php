@@ -13,6 +13,10 @@ class Role extends Model
         'role',
     ];
 
+    public static array $roles = [
+        '0','1','2','3'
+    ];
+
 
     const ADMIN = 0;
     const FACULTY = 1;
