@@ -64,16 +64,16 @@ class AttendanceController extends Controller
         $attendance->type = $type;
         $attendance->save();
 
-        $incrementAttendance = $this->incrementAttendance($request);
+        $incrementAttendance = $this->incrementAttendance($attendance->rfid);
         $attendanceLogResource = new AttendanceLogResource($attendance);
         $transformedAttendanceLog = $attendanceLogResource->toArray($request);
 
-        if (!$attendanceLogResource || !$transformedAttendanceLog) {
+        if (!$attendanceLogResource || !$transformedAttendanceLog || !$incrementAttendance) {
             return 'ERROR';
         }
 
         // Pass the formatted data to the view
-        return response()->view('index', ['attendanceLog' => $transformedAttendanceLog]);        
+        return response()->view('index', ['attendanceLog' => $transformedAttendanceLog]);   
     }
 
     /**
@@ -118,12 +118,31 @@ class AttendanceController extends Controller
             return 'User not found'; // or handle the case appropriately
         }
 
-        // Increment attendance
-        $increment = ++$user->attendance;
-        $user->save();
+        $latestLog = Attendance::where('rfid', $rfid)
+                        ->latest('created_at')
+                        ->first();
 
-        Log::info("User attendance incremented: {$user->name} (RFID: $rfid)");
+        if ($latestLog) {
+            $currentTime = Carbon::now();
+            $fiveMinutesAgo = $currentTime->subMinutes(1); // Put 1 for Testing and 5 for Prod
+    
+            if ($latestLog->type === Attendance::TIME_OUT) {
+                
+            } elseif ($latestLog->type === Attendance::TIME_IN && $latestLog->created_at->gte($fiveMinutesAgo) ) {
+                // Increment attendance
+                $increment = ++$user->attendance;
+                $user->save();
 
-        return response()->json($user);
+                if (!$increment)
+                {
+                    return 'ERROR';
+                }
+            }
+        }
+
+        return response()->json([
+            'user' =>$user, 
+            'rfid' => $rfid
+        ]);
     }
 }
