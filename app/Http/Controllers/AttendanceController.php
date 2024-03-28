@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\AttendanceLogResource;
+use App\Mail\AdviserNotificationMail;
+use App\Mail\AttendanceLogMail;
+use App\Mail\ParentNotificationMail;
 use App\Models\Attendance;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
+use function Laravel\Prompts\error;
 use Illuminate\Support\Facades\Log;
 
 class AttendanceController extends Controller
@@ -68,7 +73,15 @@ class AttendanceController extends Controller
         $attendanceLogResource = new AttendanceLogResource($attendance);
         $transformedAttendanceLog = $attendanceLogResource->toArray($request);
 
-        if (!$attendanceLogResource || !$transformedAttendanceLog || !$incrementAttendance) {
+        $studentMail = new AttendanceLogMail($attendance);
+        $parentMail = new ParentNotificationMail($attendance);
+        $adviserMail = new AdviserNotificationMail($attendance);
+
+        $mailSend = Mail::to('velascojeremiahd@gmail.com', null)->queue($studentMail);
+        $parentNotification = Mail::to('velascojeremiahd@gmail.com', null)->queue($parentMail);
+        $adviserNotification = Mail::to('velascojeremiahd@gmail.com', null)->queue($adviserMail);
+
+        if (!$attendanceLogResource || !$transformedAttendanceLog || !$mailSend || !$parentNotification || !$adviserNotification || !$incrementAttendance) {
             return 'ERROR';
         }
 

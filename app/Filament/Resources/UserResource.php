@@ -49,7 +49,6 @@ class UserResource extends Resource
             Tables\Columns\TextColumn::make('id')
                 ->label('ID')
                 ->sortable(),
-            // TODO : display default profile image
             ImageColumn::make('image')
                 ->disk('public'),
             Tables\Columns\TextColumn::make('name')
