@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class AttendanceLogMail extends Mailable implements ShouldQueue
+class ParentNotificationMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -30,7 +30,7 @@ class AttendanceLogMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Attendance Log Mail',
+            subject: 'Child Attendance Notification',
         );
     }
 
@@ -46,9 +46,9 @@ class AttendanceLogMail extends Mailable implements ShouldQueue
         $modifiedType = ($type == 0) ? 'EXITED' : 'ENTERED'; 
 
         $formattedCreatedAt = $this->attendance->created_at->format('H:i:s F j, Y'); 
-
+        
         return new Content(
-            view: 'mail.attendance_log_mail',
+            view: 'mail.parent_notification_mail',
             with: [
                 'name' => $user->name,
                 'type' => $modifiedType,

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\EmailNotificationTrait;
 use App\Http\Resources\AttendanceLogResource;
+use App\Mail\AdviserNotificationMail;
 use App\Mail\AttendanceLogMail;
+use App\Mail\ParentNotificationMail;
 use App\Models\Attendance;
 use Carbon\Carbon;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -70,9 +70,15 @@ class AttendanceController extends Controller
         $attendanceLogResource = new AttendanceLogResource($attendance);
         $transformedAttendanceLog = $attendanceLogResource->toArray($request);
 
-        $mailSend = Mail::to('velascojeremiahd@gmail.com', null)->send(new AttendanceLogMail($attendance));
+        $studentMail = new AttendanceLogMail($attendance);
+        $parentMail = new ParentNotificationMail($attendance);
+        $adviserMail = new AdviserNotificationMail($attendance);
 
-        if (!$attendanceLogResource || !$transformedAttendanceLog || !$mailSend) {
+        $mailSend = Mail::to('velascojeremiahd@gmail.com', null)->queue($studentMail);
+        $parentNotification = Mail::to('velascojeremiahd@gmail.com', null)->queue($parentMail);
+        $adviserNotification = Mail::to('velascojeremiahd@gmail.com', null)->queue($adviserMail);
+
+        if (!$attendanceLogResource || !$transformedAttendanceLog || !$mailSend || !$parentNotification || !$adviserNotification) {
             return 'ERROR';
         }
 

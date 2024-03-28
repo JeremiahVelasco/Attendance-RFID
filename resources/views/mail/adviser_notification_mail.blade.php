@@ -145,8 +145,8 @@
 
                                                             <div
                                                                 style="font-family: arial,helvetica,sans-serif; font-size: 25px; font-weight: 700; color: #ffffff; line-height: 140%; text-align: center; word-wrap: break-word;">
-                                                                <p style="line-height: 140%;">ATTENDANCE LOG
-                                                                    NOTIFICATION</p>
+                                                                <p style="line-height: 140%;">Student Attendance
+                                                                    Notification</p>
                                                             </div>
 
                                                         </td>
@@ -195,15 +195,18 @@
                                                             <div
                                                                 style="font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;">
                                                                 <p style="line-height: 140%;"><strong>Hello,
-                                                                        {{ $name }}</strong></p>
-                                                                <p style="line-height: 140%;"> </p>
-                                                                <p style="line-height: 140%;">You have
-                                                                    <strong>{{ $type }} SCHOOL NAME </strong> at
-                                                                    <strong>{{ $created_at }}</strong>.
+                                                                        ADVISER NAME</strong></p>
+                                                                <p style="line-height: 140%;"></p>
+                                                                <p style="line-height: 140%;">Your student
+                                                                    <strong>{{ $name }}</strong> has
+                                                                    <strong>{{ $type }}</strong>
+                                                                    <strong>SCHOOL NAME</strong>at
+                                                                    <strong>{{ $created_at }}</strong>
                                                                 </p>
-                                                                <p style="line-height: 140%;"> </p>
-                                                                <p style="line-height: 140%;">Have a great day at
-                                                                    <strong>SCHOOL NAME</strong>!
+                                                                <p style="line-height: 140%;"></p>
+                                                                <p style="line-height: 140%;">Have a great day teachers!
+                                                                    “A good education can change anyone. A good teacher
+                                                                    can change everything!”</strong>
                                                                 </p>
                                                             </div>
 
