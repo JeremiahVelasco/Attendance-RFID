@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="main grid grid-cols-2 min-h-screen">
-        <div class="left flex flex-col justify-center items-center">
+    <section class="main flex justify-around min-h-screen">
+        <div class="left flex flex-col justify-center items-center w-3/5">
             <img src="storage/sample_logo.png" alt="school logo">
             <div class="dateTime text-center divide-y divide-solid divide-slate-200">
                 <div id="currentTime" class="text-3xl font-semibold"></div>
@@ -14,7 +14,7 @@
                 </form>
             </div>
         </div>
-        <div class="right flex flex-col py-4 px-6 text-center justify-center">
+        <div class="right flex flex-col py-4 px-6 text-center justify-center w-2/5">
             @if ($attendanceLog)
                 <p>RFID: {{ $attendanceLog['rfid'] }}</p>
                 <p>Type: {{ $attendanceLog['type'] }}</p>
