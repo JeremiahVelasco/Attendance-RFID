@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
             'image' => 'default-prof.jpeg',
             'name' => 'Jeremiah Velasco',
             'email' => 'velascojeremiahd@gmail.com',
-            'rfid' => '000',
+            'rfid' => '0295745843',
             'role' => 0,
             'password' => 'password'
         ]);

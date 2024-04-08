@@ -29,7 +29,7 @@ class UserFactory extends Factory
             'image' => 'default-prof.jpeg',
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'rfid' => fake()->randomNumber(3),
+            'rfid' => rand(1000000000, 9999999999),
             'role' => fake()->randomElement(Role::$roles),
             'attendance' => 0,
             'password' => static::$password ??= Hash::make('password'),

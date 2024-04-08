@@ -7,9 +7,9 @@
             <div class="dateTime text-center divide-y divide-solid divide-slate-200">
                 <div id="currentTime" class="text-3xl font-semibold"></div>
                 <div id="currentDate" class="text-l font-light"></div>
-                <form action="{{ route('log.attendance') }}" method="POST">
+                <form id="attendanceForm" action="{{ route('log.attendance') }}" method="POST" autocomplete="off">
                     @csrf
-                    <input class="text-center mt-5" name="rfid" type="text" placeholder="RFID">
+                    <input id="rfidInput" class="text-center mt-5" name="rfid" type="text" placeholder="RFID">
                     <button type="submit">Submit</button>
                 </form>
             </div>
@@ -52,5 +52,18 @@
 
         // Initial call to update date and time when the page loads
         updateDateTime();
+
+
+        // FOR Hidding
+        document.addEventListener("DOMContentLoaded", function() {
+            var form = document.getElementById("attendanceForm");
+            var input = document.getElementById("rfidInput");
+
+            // Show the form initially hidden
+            form.style.opacity = 0;
+
+            // Focus on the input field when the page loads
+            input.focus();
+        });
     </script>
 @endsection
