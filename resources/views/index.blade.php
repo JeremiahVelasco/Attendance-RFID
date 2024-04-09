@@ -16,11 +16,16 @@
         </div>
         <div class="right flex flex-col py-4 px-6 text-center justify-center w-2/5">
             @if ($attendanceLog)
-                <p>RFID: {{ $attendanceLog['rfid'] }}</p>
-                <p>Type: {{ $attendanceLog['type'] }}</p>
-                <p>Created At: {{ $attendanceLog['created_at'] }}</p>
-                <p>Name: {{ $attendanceLog['user']['name'] }}</p>
-                <p>Role: {{ $attendanceLog['user']['role'] }}</p>
+                <img class="h-1.5/5 w-2/5 self-center rounded-full border-2 border-blue-900"
+                    src="/storage/profile-photos/{{ $attendanceLog['user']['name'] }}.png" alt="">
+                <div class="mt-4">
+                    <p class="text-xl font-semibold">{{ $attendanceLog['user']['name'] }}</p>
+                    <p class="mb-6 text-gray-500 font-light">{{ $attendanceLog['user']['role'] }}</p>
+                    <p class="text-xl font-semibold">{{ $attendanceLog['type'] }}</p>
+                    <p class="text-xl font-semibold">
+                        {{ \Carbon\Carbon::parse($attendanceLog['created_at'])->format('F d, Y - h:i A') }}
+                    </p>
+                </div>
             @else
                 {{-- Put Waiting Animation Here --}}
                 <iframe src="https://giphy.com/embed/lP4jmO461gq9uLzzYc" width="480" height="312" frameBorder="0"

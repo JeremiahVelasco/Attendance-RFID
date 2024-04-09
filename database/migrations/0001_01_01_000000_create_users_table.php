@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('image')->nullable();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('rfid')->unique()->nullable();
             $table->integer('role')->default(0);
             $table->integer('attendance');

@@ -55,10 +55,11 @@ class AttendanceController extends Controller
         if ($latestLog) {
             $currentTime = Carbon::now();
             $fiveMinutesAgo = $currentTime->subMinutes(1); // Put 1 for Testing and 5 for Prod
+            $twentyFourHours = $currentTime->subHours(24);
     
             if ($latestLog->created_at->lte($fiveMinutesAgo)) {
                 $type = Attendance::TIME_OUT; // Set type to TIME OUT if conditions are met
-            } elseif ($latestLog->type === Attendance::TIME_OUT) {
+            } elseif ($latestLog->type === Attendance::TIME_OUT && $latestLog->created_at->gte($twentyFourHours)) {
                 $type = Attendance::TIME_IN;
             }
         }
