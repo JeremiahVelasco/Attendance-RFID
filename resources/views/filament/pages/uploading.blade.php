@@ -1,7 +1,7 @@
 <x-filament-panels::page>
     <style>
         #uploadForm {
-            background: #18181B;
+            background: none;
             width: max-content;
             padding: 30px 30px;
             border: solid 1px #222224;
@@ -15,14 +15,15 @@
         }
 
         #submitBtn {
-            background: #F49E0B;
+            color: #ffffff;
+            background: #133561;
             padding: 4px 12px;
             border-radius: 6px;
             font-weight: bold;
         }
 
         #submitBtn:hover {
-            background: #fbbf24;
+            background: #556e8e;
         }
     </style>
     <section>

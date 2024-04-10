@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-            'image' => '/storage/profile-photos/Jeremiah Velasco.jpg',
+            'image' => 'storage/app/public/profile-photos/Jeremiah_Velasco.png',
             'name' => 'Jeremiah Velasco',
             'email' => 'velascojeremiahd@gmail.com',
             'rfid' => '0295745843',
@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
         ]);
         
         User::factory()->create([
-            'image' => '/storage/profile-photos/Kafelnikov Dela Rosa.jpeg',
+            'image' => '/storage/profile-photos/Kafelnikov_Dela_Rosa.png',
             'name' => 'Kafelnikov Dela Rosa',
             'email' => 'velascojeremiahd@gmail.com',
             'rfid' => '0135016243',
@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'image' => '/storage/profile-photos/Vernie John Baltazar.png',
+            'image' => '/storage/profile-photos/Vernie_John_Baltazar.png',
             'name' => 'Vernie John Baltazar',
             'email' => 'velascojeremiahd@gmail.com',
             'rfid' => '0253660233',

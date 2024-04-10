@@ -18,6 +18,12 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
+    protected static ?string $navigationGroup = 'User Management';
+
+    protected static ?string $modelLabel = 'All Users';
+
+    protected static ?int $navigationSort = 0;
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -50,7 +56,8 @@ class UserResource extends Resource
                 ->label('ID')
                 ->sortable(),
             ImageColumn::make('image')
-                ->disk('public'),
+                ->width(200)
+                ->height(50),
             Tables\Columns\TextColumn::make('name')
                 ->searchable()
                 ->sortable(),

@@ -2,25 +2,27 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\FacultyResource\Pages;
+use App\Filament\Resources\StudentsResource\Pages;
+use App\Filament\Resources\StudentsResource\RelationManagers;
+use App\Models\Students;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-
-
-class FacultyResource extends Resource
+class StudentsResource extends Resource
 {
     protected static ?string $model = User::class;
 
     protected static ?string $navigationGroup = 'User Management';
 
-    protected static ?string $modelLabel = 'Faculty';
+    protected static ?string $modelLabel = 'Student';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -48,7 +50,7 @@ class FacultyResource extends Resource
 
     public static function table(Table $table): Table
     {
-        // TODO : Should only return the Users with the role of FACULTY
+        // TODO : Should only return the Users with the role of STUDENT
         return $table
         ->columns([
             Tables\Columns\TextColumn::make('id')
@@ -108,9 +110,9 @@ class FacultyResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListFaculties::route('/'),
-            'create' => Pages\CreateFaculty::route('/create'),
-            'edit' => Pages\EditFaculty::route('/{record}/edit'),
+            'index' => Pages\ListStudents::route('/'),
+            'create' => Pages\CreateStudents::route('/create'),
+            'edit' => Pages\EditStudents::route('/{record}/edit'),
         ];
     }
 }

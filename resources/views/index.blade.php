@@ -17,7 +17,8 @@
         <div class="right flex flex-col py-4 px-6 text-center justify-center w-2/5">
             @if ($attendanceLog)
                 <img class="h-1.5/5 w-2/5 self-center rounded-full border-2 border-blue-900"
-                    src="/storage/profile-photos/{{ $attendanceLog['user']['name'] }}.png" alt="">
+                    src="/storage/profile-photos/{{ str_replace(' ', '_', $attendanceLog['user']['name']) }}.png"
+                    alt="">
                 <div class="mt-4">
                     <p class="text-xl font-semibold">{{ $attendanceLog['user']['name'] }}</p>
                     <p class="mb-6 text-gray-500 font-light">{{ $attendanceLog['user']['role'] }}</p>
